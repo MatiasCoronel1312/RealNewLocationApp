@@ -1,15 +1,19 @@
 
 import * as Location from "expo-location";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, Alert, Button } from "react-native";
 
 import { styles } from "./styles";
 import  colors  from "../../utils/colors";
 import MapPreview from "../map-preview";
+import navigation from "../../navigation";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const LocationSelector = ({onLocationPicker}) => {
+    const navigation = useNavigation();
+    const route = useRoute();
     const [pickedLocation, setPickedLocation] = useState(null);
-
+    const mapLocation = route?.params?.mapLocation;
     const verifyPermissions = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -36,7 +40,21 @@ const LocationSelector = ({onLocationPicker}) => {
         onLocationPicker({ lat: latitude, lng: longitude });
 
         };
-    
+        
+    const onHandleMapLocation = async () => {
+        const isLocationPermission = await verifyPermissions();
+        if (!isLocationPermission) return;
+        navigation.navigate('Maps');
+        
+    };
+
+    useEffect(() => {
+        if(mapLocation) {
+            setPickedLocation(mapLocation);
+            onLocationPicker(mapLocation);
+        }
+    }, [mapLocation]);
+
     return (
         <View style={styles.container}>
             <View style={styles.preview}>
@@ -49,6 +67,12 @@ const LocationSelector = ({onLocationPicker}) => {
                     title='Obtener ubicacion'
                     color={colors.primary}
                     onPress={onHandleGetLocation}
+                    
+                />
+                <Button
+                    title='Seleccionar desde el mapa'
+                    color={colors.primary}
+                    onPress={onHandleMapLocation}
                     
                 />
             </View>

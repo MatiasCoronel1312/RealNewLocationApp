@@ -12,18 +12,22 @@ export const styles = StyleSheet.create({
     image : {
         width: 70,
         height: 70,
-        borderRadius: 10,
+        borderRadius: 5,
         backgroundColor: colors.primary,
     },
     infoContainer : {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'flex-Start',
+        alignItems: 'flex-start',
         marginLeft: 15,
     },
     title : {
         fontSize: 16,
         color: colors.text,
         marginBottom: 10,
+    },
+    address: {
+        fontSize: 12,
+        color: colors.primary,
     },
 })

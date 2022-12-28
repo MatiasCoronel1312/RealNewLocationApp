@@ -7,14 +7,15 @@ import React ,{ useState } from "react";
 import {  savePlace } from "../../store/place.slice";
 import { ImageSelector, LocationSelector } from "../../components";
 
-const NewPlace = ({ navigation }) => {
+const NewPlace = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [ title, setTitle] = useState('');
   const [image, setImage] = useState('');
+  const [ coords, setCoords ] = useState(null);
   
 
   const onHandleSubmit = () => {
-    dispatch(savePlace({title, image}));
+    dispatch(savePlace({title, image, coords}));
     navigation.navigate('Places');
     
   }
@@ -26,8 +27,9 @@ const onHandleChange = (text) => {
 const onImagePicker = (uri) => {
   setImage(uri);  
 };
-const onLocationPicker = ({lat, lng }) => {
-
+const onLocationPicker = (location) => {
+  
+  setCoords(location);
 }
 
   return (

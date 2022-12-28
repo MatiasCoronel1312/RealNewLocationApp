@@ -11,12 +11,12 @@ const placeSlice = createSlice({
   initialState,
   reducers: {
     addPlace: (state, action) => {
-      const newPlace = new Place(Date.now().toString(), 
-      action.payload.title, 
-      action.payload.image
-      );
-
-      state.places.push(newPlace);
+        const newPlace = new Place(Date.now().toString(), 
+        action.payload.title, 
+        action.payload.image
+       );
+        
+        state.places.push(newPlace);
     }, 
     
   },
@@ -33,8 +33,7 @@ export const savePlace = ({title, image}) => {
        // from: image,
        // to: newPath,
      // })
-     console.log('image',image)
-     
+    
     } catch (error) {
       console.log(error);
       throw error;
